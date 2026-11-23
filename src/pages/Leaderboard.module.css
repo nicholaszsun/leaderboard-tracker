@@ -1,0 +1,10 @@
+.Leaderboard {
+    background-color: #F3F0E8;
+}
+
+.title {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}

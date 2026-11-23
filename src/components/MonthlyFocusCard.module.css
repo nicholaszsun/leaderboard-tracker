@@ -1,0 +1,23 @@
+.monthlyFocusCard {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FF6717;
+    padding : 1rem 2rem;
+    border: 4px solid #252D35;
+    box-shadow: 8px 8px #252D35;
+}
+
+.monthName {
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #F3F0E8;
+}
+
+.monthFocus {
+    margin: 0;
+    color: #F3F0E8;
+}
