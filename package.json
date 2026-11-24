@@ -1,5 +1,5 @@
 {
-  "name": "dojo-leaderboard",
+  "name": "student-leaderboard",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -15,6 +15,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
-    "vite": "^8.3.8"
+    "vite": "^7.3.8"
   }
 }
