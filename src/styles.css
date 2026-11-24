@@ -1,0 +1,68 @@
+:root { --ink: #252D35; --cream: #F3F0E8; --orange: #FF6717; --shadow: #2E2E30; }
+* { box-sizing: border-box; margin: 0; }
+html, body, #root { height: 100%; overflow: hidden; background: var(--cream); color: var(--ink); font-family: 'Archivo', sans-serif; cursor: none; }
+
+.stage {
+  position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; overflow: hidden;
+  background-color: var(--cream);
+  background-image: linear-gradient(#ccc 1px, transparent 1px), linear-gradient(90deg, #ccc 1px, transparent 1px);
+  background-size: 33.68px 33.68px;
+}
+.screen { position: absolute; inset: 0; }
+
+.title { position: absolute; top: 67px; left: 67px; display: flex; flex-direction: column; gap: 24px; }
+.title h1 { font-size: 64px; font-weight: 900; text-transform: uppercase; line-height: 1.1; }
+.title h2 { font-size: 32px; font-weight: 700; text-transform: uppercase; }
+.updated { position: absolute; top: 170px; right: 62px; font-size: 24px; font-weight: 500; text-transform: uppercase; }
+
+.wrap { position: absolute; top: 243px; left: 62px; width: 1796px; display: flex; flex-direction: column; gap: 24px; }
+.focus {
+  display: flex; justify-content: space-between; align-items: center; padding: 32px 16px;
+  background: var(--orange); color: var(--cream); font-size: 32px; font-weight: 700;
+  border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--shadow);
+}
+.cols { display: grid; grid-template-columns: 1fr 2px 1fr; gap: 34px; }
+.divider { background: var(--ink); margin-top: 37px; }
+.col { display: flex; flex-direction: column; gap: 8px; }
+.cards { display: flex; flex-direction: column; gap: 24px; }
+
+.row { display: grid; grid-template-columns: 1fr 150px 360px; column-gap: 32px; align-items: center; padding: 0 16px; }
+.head { font-size: 24px; font-weight: 500; text-transform: uppercase; }
+.card { height: 96px; background: var(--cream); border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--shadow); }
+.name { font-size: 36px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chip { height: 48px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--ink); font-size: 24px; font-weight: 700; width: 150px; }
+.prog { display: flex; align-items: center; gap: 16px; }
+.track { flex: 1; border: 2px solid var(--ink); border-radius: 18px; background: var(--cream); box-shadow: 2px 2px 0 var(--shadow); }
+.fill { height: 32px; border-radius: 22px; background: var(--ink); }
+.pct { font-size: 36px; font-weight: 700; min-width: 100px; }
+.page { text-align: center; font-size: 24px; font-weight: 500; text-transform: uppercase; }
+
+/* Black belt card */
+.card.dark { background: #000; color: var(--cream); }
+.dark .chip { border-color: #E4E3DE; }
+.dark .track { background: #424242; border-color: var(--cream); }
+.dark .fill { background: var(--cream); }
+.dark.ready { border-color: #00FF88; }
+.dark.ready .fill { background: #00FF88; }
+
+/* Test-ready pulse: the hard shadow grows and shrinks */
+.ready { animation: pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 50% { box-shadow: 7px 7px 0 var(--shadow); } }
+
+/* Page timer */
+.timer { position: absolute; left: 0; bottom: 0; width: 100%; height: 10px; background: var(--orange); border-top: 2px solid var(--ink); transform-origin: left; }
+
+/* Level banner */
+.bscreen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; overflow: hidden; }
+.wipe { position: absolute; inset: 0; background: var(--ink); z-index: 5; }
+.bcard {
+  background: var(--orange); color: var(--cream); border: 8px solid var(--ink); box-shadow: 20px 20px 0 var(--shadow);
+  padding: 64px 96px; font-size: 128px; font-weight: 900; line-height: 1; text-transform: uppercase; text-align: center;
+}
+.bsub { background: var(--cream); border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--shadow); padding: 16px 32px; font-size: 48px; font-weight: 700; text-transform: uppercase; }
+.bchips { display: flex; gap: 16px; }
+
+/* Extra pages */
+.frame { height: 640px; background: #fff; border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--shadow); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.frame img { width: 100%; height: 100%; object-fit: contain; }
+.placeholder { width: calc(100% - 64px); height: calc(100% - 64px); border: 4px dashed var(--ink); display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; opacity: 0.4; }
