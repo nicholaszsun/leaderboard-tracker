@@ -1,10 +1,15 @@
 .Leaderboard {
+    display: flex;
+    flex-direction: column;
     background-color: #F3F0E8;
+    gap: 2rem;
+    align-items: left;
+    margin: 64px;
 }
 
 .title {
     font-size: 4rem;
     font-weight: 900;
-    margin-bottom: 1rem;
+    margin: 0;
     text-transform: uppercase;
 }
