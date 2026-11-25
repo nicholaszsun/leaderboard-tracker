@@ -4,14 +4,38 @@ import { parseRows } from '../lib/students';
 
 const ID = import.meta.env.VITE_SHEET_ID;
 const KEY = import.meta.env.VITE_SHEETS_API_KEY;
-const TAB = import.meta.env.VITE_SHEET_TAB || 'Sheet1';
+const TAB = import.meta.env.VITE_SHEET_TAB || 'Final Display';
+const FOCUS_TAB = 'Monthly Focus';
 
-async function fetchRows() {
-  const range = encodeURIComponent(`${TAB}!A2:D`); // skips the header row
+async function fetchValues(tab, cells) {
+  const range = encodeURIComponent(`'${tab.replace(/'/g, "''")}'!${cells}`);
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${ID}/values/${range}?key=${KEY}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Sheets API ${res.status}`);
   return (await res.json()).values ?? [];
+}
+
+function fetchRows() {
+  return fetchValues(TAB, 'A2:D');
+}
+
+function fetchFocusRows() {
+  return fetchValues(FOCUS_TAB, 'A2:D10');
+}
+
+function parseFocusRows(rows) {
+  const month = String(rows[0]?.[0] ?? '').trim();
+  const readFocus = (column) => rows
+    .map((row) => String(row[column] ?? '').trim())
+    .filter(Boolean)
+    .join(' | ');
+
+  return {
+    title: month ? `${month} FOCUS` : 'Monthly focus',
+    beginner: readFocus(1),
+    intermediate: readFocus(2),
+    advanced: readFocus(3),
+  };
 }
 
 // Sample data so the project runs before the sheet is connected
@@ -25,9 +49,17 @@ function sampleRows() {
   ]);
 }
 
+function sampleFocusRows() {
+  return [
+    ['December', 'Wushu Stances', 'Wushu Stances', 'Wushu Stances'],
+    ['', 'Cartwheels', 'Cartwheels', 'Cartwheels'],
+    ['', 'Class Rules', 'Class Rules', 'Class Rules'],
+  ];
+}
+
 // Keeps the last good data if a refresh fails, so the TV never goes blank
 export function useSheet() {
-  const [state, setState] = useState({ data: null, at: null, error: null });
+  const [state, setState] = useState({ data: null, focus: null, at: null, error: null });
 
   useEffect(() => {
     let alive = true;
@@ -35,9 +67,16 @@ export function useSheet() {
     let retry;
     const load = async () => {
       try {
-        const rows = ID && KEY ? await fetchRows() : sampleRows();
+        const [rows, focusRows] = ID && KEY
+          ? await Promise.all([fetchRows(), fetchFocusRows()])
+          : [sampleRows(), sampleFocusRows()];
         loaded = true;
-        if (alive) setState({ data: parseRows(rows), at: new Date(), error: null });
+        if (alive) setState({
+          data: parseRows(rows),
+          focus: parseFocusRows(focusRows),
+          at: new Date(),
+          error: null,
+        });
       } catch (e) {
         console.error(e);
         if (alive) setState((s) => ({ ...s, error: e.message }));

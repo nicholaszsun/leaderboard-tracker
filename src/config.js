@@ -4,14 +4,11 @@ const CREAM = '#F3F0E8';
 
 export const CONFIG = {
   pageSeconds: 30,      // time each page of 10 students stays on screen
-  bannerSeconds: 3,     // level / section title card
+  bannerSeconds: 5,     // level / section title card
   perPage: 10,          // 5 per column x 2 columns
   refreshMinutes: 60,   // how often to re-read Google Sheets
   reloadHours: 12,      // full page reload, keeps the TV healthy all day
   testReadyAt: 70,      // % where the card turns green
-
-  // Orange banner under the title (same on every level page)
-  focus: { title: 'December focus', text: 'Wushu Stances | Cartwheels | Class Rules' },
 
   levels: [
     { key: 'beginner', name: 'Beginner', belts: ['white', 'yellow', 'orange'] },
@@ -22,8 +19,8 @@ export const CONFIG = {
   // Extra pages that rotate in after the levels. Put images in /public/images
   // and set image: '/images/your-file.jpg'. Set enabled: false to hide a page.
   extraPages: [
-    { key: 'student-of-month', enabled: true, title: 'Student of the Month', subtitle: 'December', image: null, caption: 'Congratulations!' },
-    { key: 'recent-testers', enabled: true, title: 'Recent Belt Testers', subtitle: 'Newly promoted', image: null, caption: 'Great job testing!' },
+    { key: 'student-of-month', enabled: false, title: 'Student of the Month', subtitle: 'December', image: null, caption: 'Congratulations!' },
+    { key: 'recent-testers', enabled: false, title: 'Recent Belt Testers', subtitle: 'Newly promoted', image: null, caption: 'Great job testing!' },
   ],
 };
 

@@ -9,13 +9,13 @@ import ExtraPage from './components/ExtraPage';
 import LevelBanner from './components/LevelBanner';
 
 export default function App() {
-  const { data, at, error } = useSheet();
-  const latest = useRef({ data, at });
-  latest.current = { data, at };
+  const { data, focus, at, error } = useSheet();
+  const latest = useRef({ data, focus, at });
+  latest.current = { data, focus, at };
 
   // New sheet data is only applied at the end of a full cycle, so cards never jump mid-view
   const [snap, setSnap] = useState(null);
-  useEffect(() => { if (!snap && data) setSnap({ data, at }); }, [data]);
+  useEffect(() => { if (!snap && data && focus) setSnap({ data, focus, at }); }, [data, focus, at, snap]);
 
   const slides = useMemo(() => (snap ? buildSlides(snap.data) : []), [snap]);
   const [pos, setPos] = useState({ i: 0, phase: 'banner' });
@@ -29,7 +29,13 @@ export default function App() {
       if (pos.phase === 'banner') { setPos({ i: pos.i, phase: 'page' }); return; }
       const wrap = pos.i + 1 >= slides.length;
       const next = wrap ? 0 : pos.i + 1;
-      if (wrap && latest.current.data) setSnap({ data: latest.current.data, at: latest.current.at });
+      if (wrap && latest.current.data) {
+        setSnap({
+          data: latest.current.data,
+          focus: latest.current.focus,
+          at: latest.current.at,
+        });
+      }
       const nextGroup = slides[next].group;
       setPos({ i: next, phase: nextGroup !== cur.group ? 'banner' : 'page' });
     }, ms);
@@ -50,7 +56,7 @@ export default function App() {
             <motion.div key={`page-${pos.i}`} className="screen" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               exit={{ opacity: 0, x: -120, transition: { duration: 0.35 } }}>
               {slide.type === 'level'
-                ? <LevelPage slide={slide} updated={fmtDate(snap.at)} />
+                ? <LevelPage slide={slide} updated={fmtDate(snap.at)} focus={snap.focus} />
                 : <ExtraPage slide={slide} />}
               <motion.div className="timer" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
                 transition={{ duration: slide.seconds ?? CONFIG.pageSeconds, ease: 'linear' }} />

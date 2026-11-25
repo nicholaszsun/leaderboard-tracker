@@ -49,9 +49,10 @@ function Column({ list, offset, dir }) {
   );
 }
 
-export default function LevelPage({ slide, updated }) {
+export default function LevelPage({ slide, updated, focus }) {
   const left = slide.students.slice(0, 5);
   const right = slide.students.slice(5);
+  const levelFocus = focus?.[slide.level.key] ?? '';
   return (
     <>
       <div className="title">
@@ -60,7 +61,7 @@ export default function LevelPage({ slide, updated }) {
       </div>
       <div className="updated">Updated {updated}</div>
       <div className="wrap">
-        <div className="focus"><span>{CONFIG.focus.title}</span><span>{CONFIG.focus.text}</span></div>
+        <div className="focus"><span>{focus?.title ?? 'Monthly focus'}</span><span>{levelFocus}</span></div>
         <div className="cols">
           <Column list={left} offset={0} dir={-1} />
           <div className="divider" />
