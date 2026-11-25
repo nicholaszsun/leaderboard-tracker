@@ -33,7 +33,7 @@ html, body, #root { height: 100%; overflow: hidden; background: var(--cream); co
 .chip { height: 48px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--ink); font-size: 24px; font-weight: 700; width: 150px; }
 .prog { display: flex; align-items: center; gap: 16px; }
 .track { flex: 1; border: 2px solid var(--ink); border-radius: 8px; background: var(--cream); box-shadow: 2px 2px 0 var(--shadow); }
-.fill { height: 32px; border-radius: 8px; background: var(--ink); }
+.fill { height: 32px; border-radius: 6px; background: var(--ink); }
 .pct { font-size: 36px; font-weight: 700; min-width: 100px; }
 .page { text-align: center; font-size: 24px; font-weight: 500; text-transform: uppercase; }
 
