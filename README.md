@@ -1,4 +1,4 @@
-# 720 Student Leaderboard (React + Vite)
+# Dojo Leaderboard (React + Vite)
 
 ## 1. Run it locally
 1. Install Node 18+ from nodejs.org.
