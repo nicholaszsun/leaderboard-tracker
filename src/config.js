@@ -3,7 +3,7 @@ const INK = '#252D35';
 const CREAM = '#F3F0E8';
 
 export const CONFIG = {
-  pageSeconds: 30,      // time each page of 10 students stays on screen
+  pageSeconds: 15,      // time each page of 10 students stays on screen
   bannerSeconds: 5,     // level / section title card
   perPage: 10,          // 5 per column x 2 columns
   refreshMinutes: 60,   // how often to re-read Google Sheets
